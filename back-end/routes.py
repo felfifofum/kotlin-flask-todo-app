@@ -1,6 +1,7 @@
-from flask import Flask, request
-
-app = Flask(__name__)
+from flask import render_template, request, redirect, url_for
+from app import app
+#from app.models import Todo
+from app import db
 
 @app.route('/')
 def hello():
@@ -8,21 +9,16 @@ def hello():
 
 @app.route("/add", methods=["POST"])
 def debug():
-    text = request.form["sample"]
-    print(text)
-    return "received"
-
-@app.route("/complete", methods=["POST"])
-def debug():
-    text = request.form["sample"]
-    print(text)
-    return "received"
+    todo = request.form["sample"]
+    print(todo)
+    return "added"
+    db.session.add(todo)
+    db.session.commit()
 
 @app.route("/delete", methods=["POST"])
 def debug():
-    text = request.form["sample"]
-    print(text)
-    return "received"
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    todo = request.form["sample"]
+    print(todo)
+    return "deleted"
+    db.session.delete(todo)
+    db.session.commit()
