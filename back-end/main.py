@@ -1,7 +1,8 @@
-from app import app
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 import os
+import app
+
 
 file_path = os.path.abspath(os.getcwd())+"/todolist.db"
 
