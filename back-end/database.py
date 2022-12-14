@@ -1,7 +1,6 @@
 import sqlite3
 
 conn = sqlite3.connect('todolist.db')
-
 c = conn.cursor()
 
 things_todo = [
@@ -15,9 +14,19 @@ things_todo = [
 #        todo_item text
 #    )""")
 
-c.execute("INSERT INTO todolist VALUES ('wash dirty laundy'),('take pet out for a walk')")
+c.execute("DELETE from todolist WHERE rowid = 15")
+
+
+#c.execute("INSERT INTO todolist VALUES ('wash dirty laundy'),('take pet out for a walk')")
 c.execute("SELECT * FROM todolist")
-print(c.fetchone()[0])
+
+#item = print(c.fetchone()[0])
+
+items = c.fetchall()
+
+
+for item in items:
+    print(item)
 
 
 conn.commit()
