@@ -32,7 +32,7 @@ def home():
 def home():
     db.session.add(Todo)
     db.session.commit()
-    Todo = request.form["sample"]
+    todo = request.form["sample"]
     return "added"
     
 
