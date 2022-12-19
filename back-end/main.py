@@ -13,44 +13,45 @@ file_path = os.path.abspath(os.getcwd())+"/todolist.db"
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
-    __tablename__ = "to-do"
-
-    id = db.Column("id", db.integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key = True) 
     todoitem = db.Column("todoitem", db.String(200))
+    complete = db.Column(db.Boolean)
 
     def __init__(self,todoitem):
         self.todoitem = todoitem
 
 
-@app.route('/', methods=['POST','GET'])
-def home():
+@app.route('/')
+def index():
     return render_template("../front-end/app/src/java/com/example/todolist/MainActivity.kt")
-    return "its working!"
 
 
 @app.route("/add", methods=["POST"])
-def home():
-    db.session.add(Todo)
-    db.session.commit()
-    todo = request.form["sample"]
-    return "added"
+def add():
+    if request.method == 'POST':
+        #check content on todolist
+        new_item = Todo()
+    try:
+        db.session.add(Todo)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'there was an error adding an item'
     
-
-    return redirect (url_for('/'))
-
+    
 @app.route('/complete/<id>')
 def complete(id):
     todo = Todo.query.filter_by(id=int(id))
-    Todo.complete = True
+    todo.complete = True
     db.session.commit()
 
-@app.route("/delete/<id>", methods=["DELETE"])
+@app.route("/delete/<int:id>", methods=["DELETE"])
 def delete(id):
     task_delete = Todo.query.get_or_404(id)
-
     try:
         db.session.delete(task_delete)
         db.session.commit()
+        return redirect('/')
         todo = request.form["sample"] #find part in kotlin
     except:
         return "there is a problem deleting that task"
