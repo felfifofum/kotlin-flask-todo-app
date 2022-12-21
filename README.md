@@ -4,7 +4,7 @@ A 'todo' app implemented in Kotlin utilising a Python Flask framework backend AP
 # Back-end
 Flask app with routes to add, delete and assign completed todo items from database.
 
-Sqlite3 database.
+Sqlite3 database for to do items.
 
 # Front-end
 Composed of 2 Kotlin classes: 
